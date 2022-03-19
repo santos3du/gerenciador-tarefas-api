@@ -1,11 +1,14 @@
 package br.com.eduardo.gerenciadortarefasapi.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -18,6 +21,9 @@ public class Departamento implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String titulo;
+	
+	@OneToMany(mappedBy = "departamento")
+	public List<Pessoa> pessoa = new ArrayList<>();
 	
 	public Departamento() {}
 	
