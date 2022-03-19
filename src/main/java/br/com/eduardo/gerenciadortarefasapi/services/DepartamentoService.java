@@ -2,7 +2,7 @@ package br.com.eduardo.gerenciadortarefasapi.services;
 
 import java.util.Optional;
 
-import javax.persistence.EntityNotFoundException;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -10,7 +10,7 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
+import org.springframework.transaction.annotation.Transactional;
 
 import br.com.eduardo.gerenciadortarefasapi.dto.DepartamentoDTO;
 import br.com.eduardo.gerenciadortarefasapi.entities.Departamento;
@@ -48,9 +48,18 @@ public class DepartamentoService {
 		}
 		
 	}
-
+	
+	@Transactional
 	public DepartamentoDTO insert(DepartamentoDTO dto) {
 		Departamento entity = new Departamento();
+		entity.setTitulo(dto.getTitulo());
+		entity = repository.save(entity);
+		return new DepartamentoDTO(entity);
+	}
+	
+	@Transactional
+	public DepartamentoDTO update(Long id, DepartamentoDTO dto) {
+		Departamento entity = repository.getById(id);
 		entity.setTitulo(dto.getTitulo());
 		entity = repository.save(entity);
 		return new DepartamentoDTO(entity);
