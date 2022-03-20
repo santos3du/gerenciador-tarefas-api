@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import br.com.eduardo.gerenciadortarefasapi.entities.enums.Situacao;
@@ -23,8 +25,14 @@ public class Tarefa implements Serializable{
 	private String titulo;
 	private String descricao;
 	private Instant prazo;
+	
+	@ManyToOne
+	@JoinColumn(name = "departamento_id")
 	private Departamento departamento;
 	private int duracao;
+	
+	@ManyToOne
+	@JoinColumn(name = "pessoa_id")
 	private Pessoa pessoa;
 	private Situacao situacao;
 	
