@@ -15,7 +15,6 @@ public class PessoaDTO implements Serializable{
 	public PessoaDTO() {}
 
 	public PessoaDTO(Long id, String nome, Departamento departamento) {
-		super();
 		this.id = id;
 		this.nome = nome;
 		this.setDepartamento(departamento);
@@ -35,12 +34,12 @@ public class PessoaDTO implements Serializable{
 		this.id = id;
 	}
 
-	public String getTitulo() {
+	public String getNome() {
 		return nome;
 	}
 
-	public void setTitulo(String titulo) {
-		this.nome = titulo;
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 
 	public Departamento getDepartamento() {
