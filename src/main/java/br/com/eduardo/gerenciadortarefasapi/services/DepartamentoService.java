@@ -59,7 +59,7 @@ public class DepartamentoService {
 	
 	@Transactional
 	public DepartamentoDTO update(Long id, DepartamentoDTO dto) {
-		Departamento entity = repository.getById(id);
+		Departamento entity = repository.getOne(id);
 		entity.setTitulo(dto.getTitulo());
 		entity = repository.save(entity);
 		return new DepartamentoDTO(entity);

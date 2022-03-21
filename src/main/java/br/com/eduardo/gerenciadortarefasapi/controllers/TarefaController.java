@@ -8,6 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -17,6 +18,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import br.com.eduardo.gerenciadortarefasapi.dto.TarefaDTO;
+import br.com.eduardo.gerenciadortarefasapi.entities.Pessoa;
+import br.com.eduardo.gerenciadortarefasapi.entities.enums.Situacao;
 import br.com.eduardo.gerenciadortarefasapi.services.TarefaService;
 
 @RestController
@@ -55,6 +58,20 @@ public class TarefaController {
 	public ResponseEntity<TarefaDTO> update(@PathVariable Long id, @RequestBody TarefaDTO dto){
 		dto = service.update(id, dto);
 		return ResponseEntity.ok().body(dto);
+	}
+	
+	//TODO: Testar essa funcionalidade
+	@PutMapping("/finalizar/{id}")
+	public ResponseEntity<TarefaDTO> finalizar(@PathVariable Long id, @RequestBody TarefaDTO dto, Situacao situacao){
+		dto = service.finalizar(id, dto, situacao);
+		return ResponseEntity.ok().body(dto);
+	}
+	
+	//TODO: Testar a atualizacao com patch
+	@PatchMapping("/alocar/{id}/pessoa/{id}")
+	public ResponseEntity<TarefaDTO> alocar(@PathVariable Long id, @RequestBody TarefaDTO dto, Long idPessoa) {
+		TarefaDTO tarefaDTO = service.alocar(id, dto, idPessoa);
+		return ResponseEntity.ok().body(tarefaDTO);
 	}
 	
 	@DeleteMapping("/{id}")

@@ -26,14 +26,14 @@ public class PessoaService {
 	
 	public Page<PessoaDTO> findAll(Pageable pageable) {
 		Page<Pessoa> list = repository.findAll(pageable);
-		return list.map(m -> new PessoaDTO(m));
+		return list.map(p -> new PessoaDTO(p));
 		
 	}
 
 	public PessoaDTO findById(Long id) {
 		Optional<Pessoa> optional = repository.findById(id);
-		Pessoa departamento = optional.orElseThrow(() -> new ResourceNotFoundException("Id não encontrado."));
-		return new PessoaDTO(departamento);
+		Pessoa entity = optional.orElseThrow(() -> new ResourceNotFoundException("Id não encontrado."));
+		return new PessoaDTO(entity, entity.getTarefas());
 		
 	}
 	
@@ -60,7 +60,7 @@ public class PessoaService {
 	
 	@Transactional
 	public PessoaDTO update(Long id, PessoaDTO dto) {
-		Pessoa entity = repository.getById(id);
+		Pessoa entity = repository.getOne(id);
 		entity.setNome(dto.getNome());
 		entity.setDepartamento(dto.getDepartamento());
 		entity = repository.save(entity);
